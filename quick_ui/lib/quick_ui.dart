@@ -1,7 +1,5 @@
 library quick_ui;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'Widgets/Bars/simple_bottom_bar.dart';
+export 'Widgets/Images/quick_image.dart';
+export 'Widgets/InputFields/input_field.dart';
