@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:quick_ui/Widgets/Bars/simple_bottom_bar.dart';
 import 'package:quick_ui/quick_ui.dart';
 
 void main() {
