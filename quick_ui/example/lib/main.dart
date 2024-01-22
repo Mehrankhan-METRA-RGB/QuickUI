@@ -68,7 +68,6 @@ class _ExampleState extends State<Example> {
                 borderRadius: BorderRadius.circular(20),
               ),
               hintText: 'Email',
-              title: 'Email',
               suffixIcon: const Icon(Icons.add),
               prefixIcon: Icons.ac_unit_sharp,
               textStyle: const TextStyle(
