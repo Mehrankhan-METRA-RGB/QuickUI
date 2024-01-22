@@ -72,6 +72,12 @@ class QuickImage<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    print(url is IconData);
+    print(url);
+
+    print(color);
+
     return ClipRRect(
       borderRadius: radius ?? BorderRadius.zero,
       child: Container(
@@ -94,10 +100,12 @@ class QuickImage<T> extends StatelessWidget {
       );
     } else {
       return url.toString().toLowerCase().endsWith("svg")
-          ? _buildSvgImage(context)
-          : _buildCachedNetworkImage(context);
+          ?  _buildSvgImage(context)
+          :  _buildCachedNetworkImage(context);
     }
   }
+
+
 
   Widget _buildSvgImage(BuildContext context) {
     return url.toString().contains("http")
