@@ -76,12 +76,48 @@ class _ExampleState extends State<Example> {
             const SizedBox(
               height: 50,
             ),
+
+            QuickButton(
+              borderStyle: BorderStyle.solid,
+              strokeAlign: 0.10,
+              borderWidth: 1,
+              height: 45,
+              width: 30,
+              gapWidth: 10,
+              prefixIcon: 'assets/icon.svg',
+              prefixColor: Colors.white,
+              // suffixIcon: Icons.access_alarms_outlined,
+              prefixSize: const Size(20, 20),
+              // suffixSize: const Size(6, 6),
+              buttonText: 'Continue with Apple',
+              textStyle: const TextStyle(
+                color: Colors.white,
+              ),
+              backgroundColor: Colors.black,
+              borderRadius: BorderRadius.circular(30),
+              borderColor: Colors.black,
+            ),
+            const SizedBox(height: 10,),
+            QuickButton(
+              height: 45,
+              width: 30,
+              buttonText: 'Saved',
+              textStyle: const TextStyle(
+                color: Colors.white,
+              ),
+              backgroundColor: Colors.blue,
+              borderRadius: BorderRadius.circular(30),
+            ),
+           const SizedBox(height: 10),
             InputFields(
               validator: (value) {
                 if (value!.isEmpty) {
                   return 'Required Filed';
                 }
                 return null;
+              },
+              onChange: (value) {
+
               },
               unFocusedColor: Colors.grey.withOpacity(0.3),
               focusedColor: Colors.black87,
@@ -142,10 +178,8 @@ class _ExampleState extends State<Example> {
               onChange: (int index) {},
             ),
             const QuickFloat(
-              child: Icon(
-                Icons.access_time_filled,
-                size: 50,
-              ), // Set the desired offsets
+              child: QuickImage(url: 'assets/icon.svg',height: 100,)
+              //the desired offsets
             )
           ],
         ),

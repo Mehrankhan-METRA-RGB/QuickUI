@@ -58,7 +58,6 @@ class InputFields<T> extends StatefulWidget {
   final double borderStrokeAlign;
   final VoidInputChange? onChange;
   final String? Function(String? value)? validator;
-
   final InputBorder? border;
   final EdgeInsets? contentPadding;
   final InputDecoration? inputDecoration;
@@ -117,14 +116,13 @@ class _InputFieldsState<T> extends State<InputFields<T>> {
         });
       }
     }
-
     // TODO: implement initState
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    print("BUILD CALL $borderColor");
+    log("BUILD CALL $borderColor");
     final theme = Theme.of(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
