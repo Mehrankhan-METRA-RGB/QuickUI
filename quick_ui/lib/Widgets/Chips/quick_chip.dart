@@ -1,6 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:quick_ui/Widgets/Images/quick_image.dart';
 
+/// QuickChip is a customizable chip widget that can be used to display
+/// information with an optional avatar, label, and delete icon. It extends
+/// [StatefulWidget], allowing dynamic updates to its properties. The chip's
+/// appearance can be configured using various properties such as [backgroundColor],
+/// [borderColor], [elevation], and more.
+///
+/// ## Usage
+/// ```dart
+/// QuickChip(
+///   label: 'Example Chip',
+///   onTap: () {
+///     // Handle chip tap event
+///   },
+///   onDeleted: () {
+///     // Handle chip deletion event
+///   },
+///   avatar: Icons.person,
+///   deleteIcon: Icons.close,
+///   borderColor: Colors.blue,
+///   elevation: 2.0,
+///   backgroundColor: Colors.white,
+///   labelStyle: TextStyle(color: Colors.black),
+/// )
+/// ```
 class QuickChip<T> extends StatefulWidget {
   const QuickChip({
     super.key,
@@ -19,18 +43,43 @@ class QuickChip<T> extends StatefulWidget {
     this.avatar,
   });
 
+  /// A callback function triggered when the chip is tapped.
   final void Function()? onTap;
+
+  /// The text label displayed on the chip.
   final String? label;
+
+  /// The color of the chip's border.
   final Color? borderColor;
+
+  /// An optional avatar displayed on the left side of the chip.
   final T? avatar;
+
+  /// The color of the chip's shadow.
   final Color? shadowColor;
+
+  /// The shape of the chip.
   final OutlinedBorder? shape;
+
+  /// The side of the chip's border.
   final BorderSide? borderSide;
+
+  /// The style of the label text.
   final TextStyle? labelStyle;
+
+  /// The padding around the chip's content.
   final EdgeInsets? padding;
+
+  /// An optional delete icon displayed on the right side of the chip.
   final T? deleteIcon;
+
+  /// A callback function triggered when the delete icon is tapped.
   final void Function()? onDeleted;
+
+  /// The background color of the chip.
   final Color? backgroundColor;
+
+  /// The elevation of the chip.
   final double? elevation;
 
   @override

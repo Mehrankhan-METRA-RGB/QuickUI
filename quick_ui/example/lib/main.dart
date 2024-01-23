@@ -41,8 +41,7 @@ class _ExampleState extends State<Example> {
   List<String> listOfChip = ['String ', 'int', 'bool', 'dynamic', 'function'];
 
   int activeIndex = 0;
-
-
+  Offset offset = const Offset(50, 100);
 
   @override
   Widget build(BuildContext context) {
@@ -55,96 +54,12 @@ class _ExampleState extends State<Example> {
             const SizedBox(
               height: 130,
             ),
-            for (int i = 0; i < listOfChip.length; i++)
-              QuickChip(
-                avatar: 'assets/icon.svg',
-                borderColor: i == activeIndex?Colors.black:Colors.yellowAccent,
-                // backgroundColor: i == activeIndex? Colors.green:Colors.transparent,
-                onTap: () {
-                  activeIndex = i;
-                  setState(() {
-
-                  });
-                },
-                onDeleted: () {
-                  listOfChip.remove(listOfChip[i]);
-                  setState(() {
-
-                  });
-                },
-                deleteIcon:Icon(Icons.abc_sharp),
-                label: listOfChip[i],
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(10),bottomLeft: Radius.circular(10)),
-                  side: BorderSide(color: Colors.transparent),
-                ),
-
-
-                // InputFields(
-                //   validator: (value) {
-                //     if(value!.isEmpty){
-                //       return 'Required Filed';
-                //     }
-                //     return null;
-                //   },
-                //   unFocusedColor: Colors.yellow,
-                //   borderColor: Colors.green,
-                //   // validationText: 'Email Is Required',
-                //   label: const Text('label'),
-                //   focusNode:focusNode,
-                //   border:  OutlineInputBorder(
-                //     borderSide: const BorderSide(color: Colors.red),
-                //     borderRadius: BorderRadius.circular(20),
-                //   ),
-                //   hintText: 'Email',
-                //   suffixIcon: const Icon(Icons.add),
-                //   prefixIcon: Icons.ac_unit_sharp,
-                //   textStyle: const TextStyle(
-                //     fontSize: 10,
-                //     fontWeight: FontWeight.w400,
-                //     color: Colors.cyan,
-                //   ),
-                // ),
-                // ElevatedButton(onPressed: () {
-                //   if(_formKey.currentState!.validate()){
-                //
-                //   }
-                //
-                // }, child: const Center(child: Text('Tab')))
-
-                // SimpleBottomBar(
-                //   items: [
-                //     BarItem(
-                //       icon: Icons.add,
-                //       activeIcon: Icons.access_time,
-                //       index: 0,
-                //       selectedIndex: 0,
-                //       onTap: (int index) {},
-                //     ),
-                //     BarItem(
-                //       icon: Icons.ac_unit,
-                //       activeIcon: Icons.access_time_filled,
-                //       index: 0,
-                //       selectedIndex: 0,
-                //       onTap: (int index) {},
-                //     ),
-                //     BarItem(
-                //       icon: Icons.add_chart,
-                //       activeIcon: Icons.add_chart,
-                //       index: 0,
-                //       selectedIndex: 0,
-                //       onTap: (int index) {},
-                //     ),
-                //   ],
-                //   onChange: (int index) {},
-                // )
-              ),
-
+            const InputChip(label: Text("Hello")),
             Wrap(
               children: listOfChip.map((e) {
                 return QuickChip(
-                  borderColor:  Colors.yellowAccent,
-                  backgroundColor: Colors.transparent,
+                  borderColor: Colors.grey,
+                  backgroundColor: Colors.blue.withOpacity(0.2),
                   deleteIcon: const Icon(
                     Icons.ac_unit_sharp,
                     color: Colors.black,
@@ -155,66 +70,82 @@ class _ExampleState extends State<Example> {
                     borderRadius: BorderRadius.circular(30),
                     side: const BorderSide(color: Colors.transparent),
                   ),
-                  // InputFields(
-                  //   validator: (value) {
-                  //     if(value!.isEmpty){
-                  //       return 'Required Filed';
-                  //     }
-                  //     return null;
-                  //   },
-                  //   unFocusedColor: Colors.yellow,
-                  //   borderColor: Colors.green,
-                  //   // validationText: 'Email Is Required',
-                  //   label: const Text('label'),
-                  //   focusNode:focusNode,
-                  //   border:  OutlineInputBorder(
-                  //     borderSide: const BorderSide(color: Colors.red),
-                  //     borderRadius: BorderRadius.circular(20),
-                  //   ),
-                  //   hintText: 'Email',
-                  //   suffixIcon: const Icon(Icons.add),
-                  //   prefixIcon: Icons.ac_unit_sharp,
-                  //   textStyle: const TextStyle(
-                  //     fontSize: 10,
-                  //     fontWeight: FontWeight.w400,
-                  //     color: Colors.cyan,
-                  //   ),
-                  // ),
-                  // ElevatedButton(onPressed: () {
-                  //   if(_formKey.currentState!.validate()){
-                  //
-                  //   }
-                  //
-                  // }, child: const Center(child: Text('Tab')))
-
-                  // SimpleBottomBar(
-                  //   items: [
-                  //     BarItem(
-                  //       icon: Icons.add,
-                  //       activeIcon: Icons.access_time,
-                  //       index: 0,
-                  //       selectedIndex: 0,
-                  //       onTap: (int index) {},
-                  //     ),
-                  //     BarItem(
-                  //       icon: Icons.ac_unit,
-                  //       activeIcon: Icons.access_time_filled,
-                  //       index: 0,
-                  //       selectedIndex: 0,
-                  //       onTap: (int index) {},
-                  //     ),
-                  //     BarItem(
-                  //       icon: Icons.add_chart,
-                  //       activeIcon: Icons.add_chart,
-                  //       index: 0,
-                  //       selectedIndex: 0,
-                  //       onTap: (int index) {},
-                  //     ),
-                  //   ],
-                  //   onChange: (int index) {},
-                  // )
                 );
               }).toList(),
+            ),
+            const SizedBox(
+              height: 50,
+            ),
+            InputFields(
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Required Filed';
+                }
+                return null;
+              },
+              unFocusedColor: Colors.grey.withOpacity(0.3),
+              focusedColor: Colors.black87,
+              borderColor: (val) => val!,
+              label: const Text('label'),
+              focusNode: focusNode,
+              border: OutlineInputBorder(
+                borderSide: const BorderSide(color: Colors.red),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              hintText: 'Email',
+              suffixIcon: const Icon(
+                Icons.email_outlined,
+                color: Colors.red,
+              ),
+              prefixIcon: Icons.security_rounded,
+              textStyle: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: Colors.grey,
+              ),
+            ),
+            const SizedBox(
+              height: 50,
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {}
+                },
+                child: const Center(child: Text('Tab'))),
+            const SizedBox(
+              height: 50,
+            ),
+            SimpleBottomBar(
+              items: [
+                BarItem(
+                  icon: Icons.add,
+                  activeIcon: Icons.access_time,
+                  index: 0,
+                  selectedIndex: 0,
+                  onTap: (int index) {},
+                ),
+                BarItem(
+                  icon: Icons.ac_unit,
+                  activeIcon: Icons.access_time_filled,
+                  index: 0,
+                  selectedIndex: 0,
+                  onTap: (int index) {},
+                ),
+                BarItem(
+                  icon: Icons.add_chart,
+                  activeIcon: Icons.add_chart,
+                  index: 0,
+                  selectedIndex: 0,
+                  onTap: (int index) {},
+                ),
+              ],
+              onChange: (int index) {},
+            ),
+            const QuickFloat(
+              child: Icon(
+                Icons.access_time_filled,
+                size: 50,
+              ), // Set the desired offsets
             )
           ],
         ),
