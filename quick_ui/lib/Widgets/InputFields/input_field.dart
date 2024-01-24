@@ -74,6 +74,8 @@ class _InputFieldsState<T> extends State<InputFields<T>> {
 
   @override
   void initState() {
+    borderColor = widget.unFocusedColor ?? Colors.transparent;
+
     ///TODO:ORIGINAL CODE
     // if (widget.focusNode != null) {
     //   if (mounted) {
@@ -151,6 +153,12 @@ class _InputFieldsState<T> extends State<InputFields<T>> {
           controller: widget.controller,
           onChanged: widget.onChange,
           decoration: widget.inputDecoration?.copyWith(
+                focusedErrorBorder: widget.border?.copyWith(
+                  borderSide: _borderSide(
+                      color: widget.errorColor ??
+                          theme.inputDecorationTheme.errorBorder?.borderSide
+                              .color),
+                ),
                 labelText: widget.title,
                 errorBorder: widget.border?.copyWith(
                   borderSide: _borderSide(
@@ -161,9 +169,10 @@ class _InputFieldsState<T> extends State<InputFields<T>> {
                 enabledBorder: widget.border?.copyWith(
                   borderSide: _borderSide(color: borderColor),
                 ),
-                border: OutlineInputBorder(
-                    borderSide: _borderSide(color: borderColor)),
-                focusedBorder: widget.border,
+                border: widget.border
+                    ?.copyWith(borderSide: _borderSide(color: borderColor)),
+                focusedBorder: widget.border
+                    ?.copyWith(borderSide: _borderSide(color: borderColor)),
                 hintStyle: widget.textStyle,
                 helperStyle: widget.textStyle,
                 contentPadding: widget.contentPadding,
@@ -184,6 +193,12 @@ class _InputFieldsState<T> extends State<InputFields<T>> {
                           theme.inputDecorationTheme.errorBorder?.borderSide
                               .color),
                 ),
+                // focusedErrorBorder: widget.border?.copyWith(
+                //   borderSide: _borderSide(
+                //       color: widget.errorColor ??
+                //           theme.inputDecorationTheme.errorBorder?.borderSide
+                //               .color),
+                // ),
                 enabledBorder: widget.border?.copyWith(
                   borderSide: _borderSide(color: borderColor),
                 ),
@@ -198,7 +213,8 @@ class _InputFieldsState<T> extends State<InputFields<T>> {
                 errorStyle: theme.inputDecorationTheme.errorStyle
                     ?.copyWith(color: widget.errorColor),
                 focusColor: theme.inputDecorationTheme.focusColor,
-                contentPadding: theme.inputDecorationTheme.contentPadding,
+                contentPadding: widget.contentPadding ??
+                    theme.inputDecorationTheme.contentPadding,
                 labelStyle:
                     widget.textStyle ?? theme.inputDecorationTheme.labelStyle,
                 helperStyle:

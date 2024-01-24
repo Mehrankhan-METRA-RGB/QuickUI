@@ -52,9 +52,34 @@ class _ExampleState extends State<Example> {
           padding: const EdgeInsets.symmetric(horizontal: 10),
           children: [
             const SizedBox(
+              height: 50,
+            ),
+             QuickPopMenu(
+               position: PopupMenuPosition.under,
+               icon: const Icon(Icons.add),
+               dividerWidth: 0.5,
+               dividerColor: Colors.black,
+               shapeBorder: RoundedRectangleBorder(
+                   borderRadius: BorderRadius.circular(10),
+                   side: const BorderSide(color: Colors.black,width: 0.5)),
+              onTab: (value,name) {
+                print("value in the UI $name");
+              },
+              boxConstraints: const BoxConstraints(
+                maxHeight: 110,
+                maxWidth: 80,
+                minHeight: 110,
+                minWidth: 80
+              ),
+              menuNames: const ['Name','Ima','ascendant'],
+              // menuIcons: const ['assets/icon.svg','assets/icon.svg','assets/icon.svg',],
+                         ),
+            const SizedBox(
               height: 130,
             ),
-            const InputChip(label: Text("Hello")),
+
+
+
             Wrap(
               children: listOfChip.map((e) {
                 return QuickChip(
@@ -110,6 +135,13 @@ class _ExampleState extends State<Example> {
             ),
            const SizedBox(height: 10),
             InputFields(
+              contentPadding: const EdgeInsets.symmetric(vertical: 15),
+             errorColor: Colors.red,
+             border: OutlineInputBorder(
+               borderRadius: BorderRadius.circular(20),
+             ),
+              borderRadius: 30,
+              fillColor: const Color(0xffFFFFFF),
               validator: (value) {
                 if (value!.isEmpty) {
                   return 'Required Filed';
@@ -119,21 +151,17 @@ class _ExampleState extends State<Example> {
               onChange: (value) {
 
               },
-              unFocusedColor: Colors.grey.withOpacity(0.3),
+              unFocusedColor: const Color(0xffEEEEEE),
               focusedColor: Colors.black87,
               borderColor: (val) => val!,
               label: const Text('label'),
               focusNode: focusNode,
-              border: OutlineInputBorder(
-                borderSide: const BorderSide(color: Colors.red),
-                borderRadius: BorderRadius.circular(20),
-              ),
+              // border: OutlineInputBorder(
+              //   borderSide: const BorderSide(color: Colors.red),
+              //   borderRadius: BorderRadius.circular(20),
+              // ),
               hintText: 'Email',
-              suffixIcon: const Icon(
-                Icons.email_outlined,
-                color: Colors.red,
-              ),
-              prefixIcon: Icons.security_rounded,
+              prefixIcon: Icons.person,
               textStyle: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
@@ -180,7 +208,9 @@ class _ExampleState extends State<Example> {
             const QuickFloat(
               child: QuickImage(url: 'assets/icon.svg',height: 100,)
               //the desired offsets
-            )
+            ),
+            const SizedBox(height: 50,),
+
           ],
         ),
       ),
