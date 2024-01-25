@@ -5,7 +5,7 @@ class QuickPopMenu extends StatefulWidget {
   const QuickPopMenu(
       {super.key,
       this.textStyle,
-      this.menuNames,
+      required this.menuNames,
       this.menuIcons,
       this.boxConstraints,
       this.position,
@@ -14,10 +14,11 @@ class QuickPopMenu extends StatefulWidget {
       this.shapeBorder,
       this.dividerColor,
       this.dividerWidth,
-      this.icon});
+      this.icon,
+      this.iconSize});
 
   final TextStyle? textStyle;
-  final List<String>? menuNames;
+  final List<String> menuNames;
   final List<dynamic>? menuIcons;
   final PopupMenuPosition? position;
   final BoxConstraints? boxConstraints;
@@ -27,6 +28,7 @@ class QuickPopMenu extends StatefulWidget {
   final ShapeBorder? shapeBorder;
   final double? dividerWidth;
   final dynamic icon;
+  final Size? iconSize;
 
   @override
   State<QuickPopMenu> createState() => _QuickPopMenuState();
@@ -37,7 +39,7 @@ class _QuickPopMenuState extends State<QuickPopMenu> {
 
   @override
   void initState() {
-    for (int i = 0; i < widget.menuNames!.length; i++) {
+    for (int i = 0; i < widget.menuNames.length; i++) {
       menus.add(_menuItem(i));
     }
 
@@ -60,7 +62,7 @@ class _QuickPopMenuState extends State<QuickPopMenu> {
         shape: widget.shapeBorder ?? theme.shape,
         onSelected: (value) async {
           widget.onTab != null
-              ? widget.onTab!(value, widget.menuNames![value])
+              ? widget.onTab!(value, widget.menuNames[value])
               : null;
         },
         child: _menuIcon(),
@@ -79,32 +81,33 @@ class _QuickPopMenuState extends State<QuickPopMenu> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           widget.menuIcons != null
-              ? Row(
-                  children: [
-                    widget.menuIcons![index] is IconData
-                        ? Icon(widget.menuIcons![index])
-                        : widget.menuIcons![index] is String
-                            ? QuickImage(url: widget.menuIcons![index])
-                            : widget.menuIcons![index] is Widget
-                                ? widget.menuIcons![index]
-                                : null,
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10),
-                      child: Text(
-                        widget.menuNames![index],
+              ? Padding(
+            padding: const EdgeInsets.only(left: 7,right: 5),
+                child: Row(
+                    children: [
+                      widget.menuIcons![index] is IconData
+                          ? Icon(widget.menuIcons![index])
+                          : widget.menuIcons![index] is String
+                              ? QuickImage(url: widget.menuIcons![index])
+                              : widget.menuIcons![index] is Widget
+                                  ? widget.menuIcons![index]
+                                  : null,
+                      const SizedBox(width: 5,),
+                      Text(
+                        widget.menuNames[index],
                         style: widget.textStyle,
                       ),
-                    ),
-                  ],
-                )
+                    ],
+                  ),
+              )
               : Padding(
                   padding: const EdgeInsets.only(left: 10),
                   child: Text(
-                    widget.menuNames![index],
+                    widget.menuNames[index],
                     style: widget.textStyle,
                   ),
                 ),
-          if (index != widget.menuNames!.length - 1)
+          if (index != widget.menuNames.length - 1)
             Divider(thickness: widget.dividerWidth, color: widget.dividerColor),
           // if(index == widget.menuNames!.length - 1 )
           // const  SizedBox(height: 10,),
@@ -118,13 +121,14 @@ class _QuickPopMenuState extends State<QuickPopMenu> {
         ? widget.icon is String
             ? QuickImage(
                 url: widget.icon,
-
+                height: widget.iconSize?.height,
+                width: widget.iconSize?.width,
               )
             : widget.icon is IconData
                 ? Icon(widget.icon)
                 : widget.icon is Widget
                     ? widget.icon
                     : const SizedBox()
-        :  const SizedBox();
+        : const SizedBox();
   }
 }

@@ -54,26 +54,34 @@ class _ExampleState extends State<Example> {
             const SizedBox(
               height: 50,
             ),
-             QuickPopMenu(
-               position: PopupMenuPosition.under,
-               icon: const Icon(Icons.add),
-               dividerWidth: 0.5,
-               dividerColor: Colors.black,
-               shapeBorder: RoundedRectangleBorder(
-                   borderRadius: BorderRadius.circular(10),
-                   side: const BorderSide(color: Colors.black,width: 0.5)),
-              onTab: (value,name) {
-                print("value in the UI $name");
-              },
-              boxConstraints: const BoxConstraints(
-                maxHeight: 110,
-                maxWidth: 80,
-                minHeight: 110,
-                minWidth: 80
-              ),
-              menuNames: const ['Name','Ima','ascendant'],
-              // menuIcons: const ['assets/icon.svg','assets/icon.svg','assets/icon.svg',],
-                         ),
+             Align(
+               alignment: Alignment.centerLeft,
+               child: QuickPopMenu(
+                 textStyle: const TextStyle(
+                   fontSize: 15,
+                   fontWeight: FontWeight.w200,
+                 ),
+                 iconSize: const Size(20, 20),
+                 position: PopupMenuPosition.under,
+                 icon: 'assets/icon.svg',
+                 dividerWidth: 1,
+                 dividerColor: Colors.black,
+                 shapeBorder: RoundedRectangleBorder(
+                     borderRadius: BorderRadius.circular(10),
+                     side: const BorderSide(color: Colors.black,width: 1)),
+                onTab: (value,name) {
+                  print("value in the UI $name");
+                },
+                boxConstraints: const BoxConstraints(
+                  maxHeight: 110,
+                  maxWidth: 90,
+                  minHeight: 110,
+                  minWidth: 90
+                ),
+                menuNames: const ['Block','Share','Add'],
+                menuIcons: const ['assets/icon.svg','assets/icon.svg','assets/icon.svg',],
+                           ),
+             ),
             const SizedBox(
               height: 130,
             ),
