@@ -54,6 +54,7 @@ class _ExampleState extends State<Example> {
             const SizedBox(
               height: 50,
             ),
+
              Align(
                alignment: Alignment.centerLeft,
                child: QuickPopMenu(
@@ -85,9 +86,6 @@ class _ExampleState extends State<Example> {
             const SizedBox(
               height: 130,
             ),
-
-
-
             Wrap(
               children: listOfChip.map((e) {
                 return QuickChip(
