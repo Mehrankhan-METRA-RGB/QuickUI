@@ -1,3 +1,4 @@
+import 'package:example/cropper.dart';
 import 'package:flutter/material.dart';
 import 'package:quick_ui/quick_ui.dart';
 
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'QUICK UI',
       theme: ThemeData(
-        cardColor: Colors.green,
+        cardColor: Colors.deepOrange,
         inputDecorationTheme: InputDecorationTheme(
             enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
@@ -109,46 +110,58 @@ class _ExampleState extends State<Example> {
             ),
             ElevatedButton(
                 onPressed: () {
-                  if (_formKey.currentState!.validate()) {}
+                  QuickToast.of(context).show(
+                      title: "title 2 wsd",
+                      radius: BorderRadius.circular(
+                          MediaQuery.sizeOf(context).width),
+                      width: MediaQuery.sizeOf(context).width - 10);
                 },
                 child: const Center(child: Text('Tab'))),
             const SizedBox(
               height: 50,
             ),
-            SimpleBottomBar(
-              items: [
-                BarItem(
-                  icon: Icons.add,
-                  activeIcon: Icons.access_time,
-                  index: 0,
-                  selectedIndex: 0,
-                  onTap: (int index) {},
-                ),
-                BarItem(
-                  icon: Icons.ac_unit,
-                  activeIcon: Icons.access_time_filled,
-                  index: 0,
-                  selectedIndex: 0,
-                  onTap: (int index) {},
-                ),
-                BarItem(
-                  icon: Icons.add_chart,
-                  activeIcon: Icons.add_chart,
-                  index: 0,
-                  selectedIndex: 0,
-                  onTap: (int index) {},
-                ),
-              ],
-              onChange: (int index) {},
-            ),
             const QuickFloat(
+              initialOffsets: Offset(100, 100),
               child: Icon(
                 Icons.access_time_filled,
                 size: 50,
-              ), // Set the desired offsets
-            )
+              ),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            const SizedBox(width: 200, child: QuickStopWatch()),
           ],
         ),
+      ),
+      bottomNavigationBar: SimpleBottomBar(
+        items: [
+          BarItem(
+            icon: Icons.crop,
+            activeIcon: Icons.crop,
+            index: 0,
+            selectedIndex: 0,
+            onTap: (int index) {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Cropper()));
+            },
+          ),
+          BarItem(
+            icon: Icons.ac_unit,
+            activeIcon: Icons.access_time_filled,
+            index: 0,
+            selectedIndex: 0,
+            onTap: (int index) {},
+          ),
+          BarItem(
+            icon: Icons.add_chart,
+            activeIcon: Icons.add_chart,
+            index: 0,
+            selectedIndex: 0,
+            onTap: (int index) {},
+          ),
+        ],
+        onChange: (int index) {},
       ),
     );
   }
