@@ -20,23 +20,21 @@ import 'package:quick_ui/quick_ui.dart';
 ///   },
 /// )
 /// ```
-
-
 class QuickPopMenu extends StatefulWidget {
   const QuickPopMenu(
       {super.key,
-        this.textStyle,
-        required this.menuNames,
-        this.menuIcons,
-        this.boxConstraints,
-        this.position,
-        this.backgroundColor,
-        this.onTab,
-        this.shapeBorder,
-        this.dividerColor,
-        this.dividerWidth,
-        this.icon,
-        this.iconSize});
+      this.textStyle,
+      required this.menuNames,
+      this.menuIcons,
+      this.boxConstraints,
+      this.position,
+      this.backgroundColor,
+      this.onTab,
+      this.shapeBorder,
+      this.dividerColor,
+      this.dividerWidth,
+      this.icon,
+      this.iconSize});
 
   /// The key to uniquely identify this widget.
 
@@ -128,36 +126,36 @@ class _QuickPopMenuState extends State<QuickPopMenu> {
         children: [
           widget.menuIcons != null
               ? Padding(
-            padding: const EdgeInsets.only(left: 7, right: 5),
-            child: Row(
-              children: [
-                widget.menuIcons![index] is IconData
-                    ? Icon(widget.menuIcons![index])
-                    : widget.menuIcons![index] is String
-                    ? QuickImage(url: widget.menuIcons![index])
-                    : widget.menuIcons![index] is Widget
-                    ? widget.menuIcons![index]
-                    : null,
-                const SizedBox(width: 5),
-                Text(
-                  widget.menuNames[index],
-                  style: widget.textStyle,
-                ),
-              ],
-            ),
-          )
+                  padding: const EdgeInsets.only(left: 7, right: 5),
+                  child: Row(
+                    children: [
+                      widget.menuIcons![index] is IconData
+                          ? Icon(widget.menuIcons![index])
+                          : widget.menuIcons![index] is String
+                              ? QuickImage(url: widget.menuIcons![index])
+                              : widget.menuIcons![index] is Widget
+                                  ? widget.menuIcons![index]
+                                  : null,
+                      const SizedBox(width: 5),
+                      Text(
+                        widget.menuNames[index],
+                        style: widget.textStyle,
+                      ),
+                    ],
+                  ),
+                )
               : Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: Text(
-              widget.menuNames[index],
-              style: widget.textStyle,
-            ),
-          ),
+                  padding: const EdgeInsets.only(left: 10),
+                  child: Text(
+                    widget.menuNames[index],
+                    style: widget.textStyle,
+                  ),
+                ),
           if (index != widget.menuNames.length - 1)
             Divider(
-              thickness: widget.dividerWidth,
-              color: widget.dividerColor,
-            ),
+                    thickness: widget.dividerWidth,
+                    color: widget.dividerColor,
+                  )
         ],
       ),
     );
@@ -167,16 +165,16 @@ class _QuickPopMenuState extends State<QuickPopMenu> {
   Widget _menuIcon() {
     return widget.icon != null
         ? widget.icon is String
-        ? QuickImage(
-      url: widget.icon,
-      height: widget.iconSize?.height,
-      width: widget.iconSize?.width,
-    )
-        : widget.icon is IconData
-        ? Icon(widget.icon)
-        : widget.icon is Widget
-        ? widget.icon
-        : const SizedBox()
-        : const SizedBox();
+            ? QuickImage(
+                url: widget.icon,
+                height: widget.iconSize?.height,
+                width: widget.iconSize?.width,
+              )
+            : widget.icon is IconData
+                ? Icon(widget.icon)
+                : widget.icon is Widget
+                    ? widget.icon
+                    : const Icon(Icons.more_vert)
+        : const Icon(Icons.more_vert);
   }
 }

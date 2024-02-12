@@ -72,6 +72,7 @@ class QuickImage<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     // print(url is IconData);
     // print(url);
     //
@@ -97,7 +98,9 @@ class QuickImage<T> extends StatelessWidget {
         width: width,
         height: height,
       );
-    } else {
+    } else if(url is IconData) {
+      return Icon(url as IconData);
+    }else{
       return url.toString().toLowerCase().endsWith("svg")
           ? _buildSvgImage(context)
           : _buildCachedNetworkImage(context);

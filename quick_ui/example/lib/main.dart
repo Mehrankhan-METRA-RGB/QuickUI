@@ -38,7 +38,15 @@ class _ExampleState extends State<Example> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  List<String> listOfChip = ['String ', 'int', 'bool', 'dynamic', 'function'];
+  List<String> listOfChip = [
+    'String ',
+    'int',
+    'bool',
+    'dynamic',
+    'function',
+  ];
+
+  String? value;
 
   int activeIndex = 0;
   Offset offset = const Offset(50, 100);
@@ -54,53 +62,59 @@ class _ExampleState extends State<Example> {
             const SizedBox(
               height: 50,
             ),
-
-             Align(
-               alignment: Alignment.centerLeft,
-               child: QuickPopMenu(
-                 textStyle: const TextStyle(
-                   fontSize: 15,
-                   fontWeight: FontWeight.w200,
-                 ),
-                 iconSize: const Size(20, 20),
-                 position: PopupMenuPosition.under,
-                 icon: 'assets/icon.svg',
-                 dividerWidth: 1,
-                 dividerColor: Colors.black,
-                 shapeBorder: RoundedRectangleBorder(
-                     borderRadius: BorderRadius.circular(10),
-                     side: const BorderSide(color: Colors.black,width: 1)),
-                onTab: (value,name) {
+            const SizedBox(
+              height: 20,
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: QuickPopMenu(
+                textStyle: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w200,
+                ),
+                // iconSize: const Size(20, 20),
+                // position: PopupMenuPosition.under,
+                onTab: (value, name) {
                   print("value in the UI $name");
                 },
-                boxConstraints: const BoxConstraints(
-                  maxHeight: 110,
-                  maxWidth: 90,
-                  minHeight: 110,
-                  minWidth: 90
-                ),
-                menuNames: const ['Block','Share','Add'],
-                menuIcons: const ['assets/icon.svg','assets/icon.svg','assets/icon.svg',],
-                           ),
-             ),
+                // boxConstraints: const BoxConstraints(
+                //   maxHeight: 110,
+                //   maxWidth: 90,
+                //   minHeight: 110,
+                //   minWidth: 90
+                // ),
+                menuNames: const ['Block', 'Share', 'Add'],
+                menuIcons: const [
+                  'assets/icon.svg',
+                  'assets/icon.svg',
+                  'assets/icon.svg',
+                ],
+              ),
+            ),
             const SizedBox(
               height: 130,
             ),
-            Wrap(
-              children: listOfChip.map((e) {
-                return QuickChip(
-                  borderColor: Colors.grey,
-                  backgroundColor: Colors.blue.withOpacity(0.2),
-                  deleteIcon: const Icon(
-                    Icons.ac_unit_sharp,
-                    color: Colors.black,
-                    size: 10,
-                  ),
-                  label: e,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    side: const BorderSide(color: Colors.transparent),
-                  ),
+            QuickDropDown(
+
+              inputBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(30),
+                borderSide: const BorderSide(color: Colors.black)
+              ),
+              fillColor: Colors.white,
+              isBorderRequired: true,
+              hintText: 'Country',
+              value: value,
+              validationText: 'Country Required',
+              onChanged: (val) {
+                value = val;
+                setState(() {
+
+                });
+              },
+              itemsMap: listOfChip.map((e) {
+                return DropdownMenuItem(
+                  value: e,
+                  child: Text(e),
                 );
               }).toList(),
             ),
@@ -128,7 +142,9 @@ class _ExampleState extends State<Example> {
               borderRadius: BorderRadius.circular(30),
               borderColor: Colors.black,
             ),
-            const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             QuickButton(
               height: 45,
               width: 30,
@@ -139,13 +155,13 @@ class _ExampleState extends State<Example> {
               backgroundColor: Colors.blue,
               borderRadius: BorderRadius.circular(30),
             ),
-           const SizedBox(height: 10),
+            const SizedBox(height: 10),
             InputFields(
               contentPadding: const EdgeInsets.symmetric(vertical: 15),
-             errorColor: Colors.red,
-             border: OutlineInputBorder(
-               borderRadius: BorderRadius.circular(20),
-             ),
+              errorColor: Colors.red,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
               borderRadius: 30,
               fillColor: const Color(0xffFFFFFF),
               validator: (value) {
@@ -154,9 +170,7 @@ class _ExampleState extends State<Example> {
                 }
                 return null;
               },
-              onChange: (value) {
-
-              },
+              onChange: (value) {},
               unFocusedColor: const Color(0xffEEEEEE),
               focusedColor: Colors.black87,
               borderColor: (val) => val!,
@@ -186,10 +200,11 @@ class _ExampleState extends State<Example> {
               height: 50,
             ),
             SimpleBottomBar(
+              backgroundColor: Colors.red,
               items: [
                 BarItem(
-                  icon: Icons.add,
-                  activeIcon: Icons.access_time,
+                  icon: Icons.remove,
+                  activeIcon: Icons.remove,
                   index: 0,
                   selectedIndex: 0,
                   onTap: (int index) {},
@@ -211,12 +226,11 @@ class _ExampleState extends State<Example> {
               ],
               onChange: (int index) {},
             ),
-            const QuickFloat(
-              child: QuickImage(url: 'assets/icon.svg',height: 100,)
-              //the desired offsets
-            ),
-            const SizedBox(height: 50,),
-
+            // const QuickFloat(
+            //   child: QuickImage(url: 'assets/icon.svg',height: 100,)
+            //   //the desired offsets
+            // ),
+            // const SizedBox(height: 50,),
           ],
         ),
       ),
