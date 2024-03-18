@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 class QuickDropDown extends StatelessWidget {
@@ -18,7 +19,10 @@ class QuickDropDown extends StatelessWidget {
   final InputBorder? inputBorder;
   final Widget? arrowIcon;
   final Color? fillColor;
+  final Color? focusColor;
+  final double? dialogRadius;
   final FocusNode? focusNode;
+  final int? elevation;
 
 
   const QuickDropDown({
@@ -39,7 +43,7 @@ class QuickDropDown extends StatelessWidget {
     this.hintStyle,
     this.inputBorder,
     this.arrowIcon,
-    this.fillColor, this.focusNode,
+    this.fillColor, this.focusNode, this.focusColor, this.dialogRadius, this.elevation,
   });
 
   final double borderRadius = 25;
@@ -49,9 +53,11 @@ class QuickDropDown extends StatelessWidget {
     return ButtonTheme(
       alignedDropdown: true,
       child: DropdownButtonFormField(
-        borderRadius: BorderRadius.circular(15),
+        focusColor: focusColor,
+        borderRadius: BorderRadius.circular(dialogRadius?? 0.0),
         //autovalidateMode: AutovalidateMode.onUserInteraction,
         menuMaxHeight: dropDownHeight,
+        elevation: 0,
 
         validator: (value) {
           if (value == null) {

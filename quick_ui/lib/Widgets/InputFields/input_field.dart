@@ -193,17 +193,17 @@ class _InputFieldsState<T> extends State<InputFields<T>> {
                           theme.inputDecorationTheme.errorBorder?.borderSide
                               .color),
                 ),
-                // focusedErrorBorder: widget.border?.copyWith(
-                //   borderSide: _borderSide(
-                //       color: widget.errorColor ??
-                //           theme.inputDecorationTheme.errorBorder?.borderSide
-                //               .color),
-                // ),
+                focusedErrorBorder: widget.border?.copyWith(
+                  borderSide: _borderSide(
+                      color: widget.errorColor ??
+                          theme.inputDecorationTheme.errorBorder?.borderSide
+                              .color),
+                ),
                 enabledBorder: widget.border?.copyWith(
                   borderSide: _borderSide(color: borderColor),
                 ),
                 border: widget.border?.copyWith(
-                  borderSide: _borderSide(color: borderColor),
+                  borderSide: _borderSide(color: Colors.red),
                 ),
                 focusedBorder: widget.border?.copyWith(
                   borderSide: _borderSide(color: borderColor),
