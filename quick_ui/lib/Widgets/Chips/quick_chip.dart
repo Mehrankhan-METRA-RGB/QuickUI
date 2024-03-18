@@ -89,6 +89,8 @@ class QuickChip<T> extends StatefulWidget {
 class _QuickChipState extends State<QuickChip> {
   @override
   Widget build(BuildContext context) {
+    print("here is icon ${widget.deleteIcon}");
+
     return widget.onTap != null
         ? InkWell(onTap: widget.onTap, child: _chipWidget())
         : _chipWidget();
@@ -97,28 +99,22 @@ class _QuickChipState extends State<QuickChip> {
   _chipWidget() {
     return Chip(
       avatar: widget.avatar != null
-          ? widget.avatar is IconData
-              ? Icon(widget.avatar as IconData)
-              : widget.avatar is String
-                  ? QuickImage(
-                      url: widget.avatar,
-                    )
-                  : widget.avatar
+          ? widget.avatar is Widget
+              ? widget.avatar
+              : QuickImage(
+                  url: widget.avatar,
+                )
           : null,
       shadowColor:
           widget.shadowColor ?? Theme.of(context).chipTheme.shadowColor,
       onDeleted: widget.onDeleted,
       labelStyle: widget.labelStyle ?? Theme.of(context).chipTheme.labelStyle,
       padding: widget.padding ?? Theme.of(context).chipTheme.padding,
-      deleteIcon: widget.deleteIcon != null
-          ? widget.deleteIcon is IconData
-              ? Icon(widget.deleteIcon as IconData)
-              : widget.deleteIcon is String
-                  ? QuickImage(
-                      url: widget.deleteIcon,
-                    )
-                  : widget.deleteIcon
-          : null,
+      deleteIcon: widget.deleteIcon is Widget
+          ? widget.deleteIcon
+          : QuickImage(
+              url: widget.deleteIcon,
+            ),
       label: Text(
         widget.label ?? "",
         style: widget.labelStyle ?? Theme.of(context).chipTheme.labelStyle,

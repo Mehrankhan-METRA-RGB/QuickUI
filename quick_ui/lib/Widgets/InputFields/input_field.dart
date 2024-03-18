@@ -59,7 +59,6 @@ class InputFields<T> extends StatefulWidget {
   final double borderStrokeAlign;
   final VoidInputChange? onChange;
   final String? Function(String? value)? validator;
-
   final InputBorder? border;
   final EdgeInsets? contentPadding;
   final InputDecoration? inputDecoration;
@@ -79,6 +78,8 @@ class _InputFieldsState<T> extends State<InputFields<T>> {
 
   @override
   void initState() {
+    borderColor = widget.unFocusedColor ?? Colors.transparent;
+
     ///TODO:ORIGINAL CODE
     // if (widget.focusNode != null) {
     //   if (mounted) {
@@ -179,6 +180,12 @@ class _InputFieldsState<T> extends State<InputFields<T>> {
           controller: widget.controller,
           onChanged: widget.onChange,
           decoration: widget.inputDecoration?.copyWith(
+                focusedErrorBorder: widget.border?.copyWith(
+                  borderSide: _borderSide(
+                      color: widget.errorColor ??
+                          theme.inputDecorationTheme.errorBorder?.borderSide
+                              .color),
+                ),
                 labelText: widget.title,
                 errorBorder: errorBorder ??
                     widget.border?.copyWith(
@@ -237,7 +244,8 @@ class _InputFieldsState<T> extends State<InputFields<T>> {
                 errorStyle: theme.inputDecorationTheme.errorStyle
                     ?.copyWith(color: widget.errorColor),
                 focusColor: theme.inputDecorationTheme.focusColor,
-                contentPadding: theme.inputDecorationTheme.contentPadding,
+                contentPadding: widget.contentPadding ??
+                    theme.inputDecorationTheme.contentPadding,
                 labelStyle:
                     widget.textStyle ?? theme.inputDecorationTheme.labelStyle,
                 helperStyle:

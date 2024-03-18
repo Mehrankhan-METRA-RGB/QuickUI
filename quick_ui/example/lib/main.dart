@@ -40,7 +40,15 @@ class _ExampleState extends State<Example> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  List<String> listOfChip = ['String ', 'int', 'bool', 'dynamic', 'function'];
+  List<String> listOfChip = [
+    'String ',
+    'int',
+    'bool',
+    'dynamic',
+    'function',
+  ];
+
+  String? value;
 
   int activeIndex = 0;
   Offset offset = const Offset(50, 100);
@@ -75,11 +83,7 @@ class _ExampleState extends State<Example> {
                 borderRadius: BorderRadius.circular(20),
               ),
               hintText: 'Email',
-              suffixIcon: const Icon(
-                Icons.email_outlined,
-                color: Colors.red,
-              ),
-              prefixIcon: Icons.security_rounded,
+              prefixIcon: Icons.person,
               textStyle: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
