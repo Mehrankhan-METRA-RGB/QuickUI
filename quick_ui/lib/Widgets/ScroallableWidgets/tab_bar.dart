@@ -1,61 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:quick_ui/Widgets/Chips/quick_chip.dart';
 
+/// Define a StatefulWidget for ScrollingTabs
 class ScrollingTabs extends StatefulWidget {
-  ///
-  ///assign [list] of Strings  for tabs and List of [widgets] for TabView
-  ///
-  /// make sure the [list] length and [widgets] length might be same
-  ///
-  /// [tabStyle] for decorating Tabs
-  ///
+  /// Constructor for ScrollingTabs widget
+  const ScrollingTabs({super.key, ///Key for widget identification
+    required this.buttons, /// List of tab buttons
+    required this.widgets, /// List of corresponding tab views
+    this.containerWidth, /// Width of the container
+    this.buttonWidth, /// Width of each tab button
+    // this.tabStyle = const ChipButtonStyle(), // Styling for tabs (commented out)
+    this.mainAxis = MainAxisAlignment.center, /// Alignment of tabs on main axis
+    this.sizedBoxWidth = 0, /// Width of SizedBox between tabs
+    this.currentTabIndex, /// Index of the initially selected tab
+    this.color, /// Background color of the container
+    this.appShadow, /// Shadow for the container
+    this.margin, /// Margin of the container
+    this.padding, /// Padding of the container
+    this.borderColor, // Border color of the container
+    this.childGap, /// Gap between tab buttons
+    this.physics, /// Scroll physics for the SingleChildScrollView
+    this.scrollController, /// Scroll controller for SingleChildScrollView
+  }) : assert(buttons.length == widgets.length, 'Tabs and Widgets length must be same');
 
-  const ScrollingTabs({
-    super.key,
-    required this.buttons,
-    required this.widgets,
-    this.containerWidth,
-    this.buttonWidth,
-    // this.tabStyle = const ChipButtonStyle(),
-    this.mainAxis = MainAxisAlignment.center,
-    this.sizedBoxWidth = 0,
-    this.currentTabIndex,
-    this.color,
-    this.appShadow,
-    this.margin,
-    this.padding,
-    this.borderColor, this.childGap, this.physics, this.scrollController,
-  }) : assert(buttons.length == widgets.length,
-            'Tabs and Widgets length must be same');
-  final List<Widget> buttons;
-  final List<Widget> widgets;
-  final EdgeInsets? margin;
-  final EdgeInsets? padding;
-  // final ChipButtonStyle tabStyle;
-  final double? containerWidth;
-  final double? buttonWidth;
-  final Color? color;
-  final ScrollController? scrollController;
-   final Color? borderColor;
-  final List<BoxShadow>? appShadow;
-  final MainAxisAlignment? mainAxis;
-  final double? sizedBoxWidth;
-  final int? currentTabIndex;
-  final ScrollPhysics? physics;
-  final double? childGap;
+  final List<Widget> buttons; /// List of tab buttons
+  final List<Widget> widgets; /// List of tab views
+  final EdgeInsets? margin; /// Margin of the container
+  final EdgeInsets? padding; /// Padding of the container
+  // final ChipButtonStyle tabStyle; /// Styling for tabs (commented out)
+  final double? containerWidth; /// Width of the container
+  final double? buttonWidth; /// Width of each tab button
+  final Color? color; /// Background color of the container
+  final ScrollController? scrollController; /// Scroll controller for SingleChildScrollView
+  final Color? borderColor; /// Border color of the container
+  final List<BoxShadow>? appShadow; /// Shadow for the container
+  final MainAxisAlignment? mainAxis; /// Alignment of tabs on main axis
+  final double? sizedBoxWidth; /// Width of SizedBox between tabs
+  final int? currentTabIndex; /// Index of the initially selected tab
+  final ScrollPhysics? physics; /// Scroll physics for the SingleChildScrollView
+  final double? childGap; /// Gap between tab buttons
 
-  ///return current tab Widget
   @override
-  State<ScrollingTabs> createState() => _ScrollingTabsState();
+  State<ScrollingTabs> createState() => _ScrollingTabsState(); // Create state for ScrollingTabs
 }
 
+// Define the state for ScrollingTabs
 class _ScrollingTabsState extends State<ScrollingTabs> {
-  //int currentTab = 0;
-  int? currentTab;
+  int? currentTab; // Current selected tab index
+
   @override
   void initState() {
-    currentTab = widget.currentTabIndex ?? 0;
-    // TODO: implement initState
+    currentTab = widget.currentTabIndex ?? 0; // Initialize currentTab to currentTabIndex or 0
     super.initState();
   }
 
@@ -65,38 +60,34 @@ class _ScrollingTabsState extends State<ScrollingTabs> {
       children: [
         Container(
           alignment: Alignment.center,
-          width: widget.containerWidth ?? double.infinity,
-          padding: widget.padding ??
-              const EdgeInsets.symmetric(vertical: 4, horizontal: 5),
-          margin: widget.margin ??
-              const EdgeInsets.symmetric(vertical: 6, horizontal: 5),
+          width: widget.containerWidth ?? double.infinity, // Set container width
+          padding: widget.padding ?? const EdgeInsets.symmetric(vertical: 4, horizontal: 5), // Set container padding
+          margin: widget.margin ?? const EdgeInsets.symmetric(vertical: 6, horizontal: 5), // Set container margin
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              border:
-                  Border.all(color: widget.borderColor ?? Colors.transparent),
-              color: widget.color ?? Colors.white,
-            boxShadow: widget.appShadow,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: widget.borderColor ?? Colors.transparent), // Set container border color
+            color: widget.color ?? Colors.white, // Set container background color
+            boxShadow: widget.appShadow, // Set container shadow
           ),
           child: SingleChildScrollView(
-            controller: widget.scrollController,
-            scrollDirection: Axis.horizontal,
-            physics: widget.physics?? const BouncingScrollPhysics(),
+            controller: widget.scrollController, // Set scroll controller
+            scrollDirection: Axis.horizontal, // Set scroll direction
+            physics: widget.physics ?? const BouncingScrollPhysics(), // Set scroll physics
             child: SizedBox(
-              width: widget.buttonWidth ?? MediaQuery.of(context).size.width,
+              width: widget.buttonWidth ?? MediaQuery.of(context).size.width, // Set width of each tab button
               child: Row(
-                // mainAxisAlignment: widget.mainAxis!,
                 children: [
                   for (int i = 0; i < widget.buttons.length; i++)
                     Row(
                       children: [
                         GestureDetector(
                           onTap: () {
-                            currentTab = i;
+                            currentTab = i; // Set currentTab to the tapped tab index
                             setState(() {});
                           },
-                          child: widget.buttons[i],
+                          child: widget.buttons[i], // Show tab button
                         ),
-                         SizedBox(width: widget.childGap?? 40,),
+                        SizedBox(width: widget.childGap ?? 40), // Add SizedBox between tab buttons
                       ],
                     ),
                 ],
@@ -104,7 +95,7 @@ class _ScrollingTabsState extends State<ScrollingTabs> {
             ),
           ),
         ),
-        widget.widgets[currentTab!]
+        widget.widgets[currentTab!] // Show the corresponding tab view based on currentTab
       ],
     );
   }

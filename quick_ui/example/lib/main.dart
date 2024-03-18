@@ -94,7 +94,7 @@ class _ExampleState extends State<Example> {
               onPressed: () {
                 _formKey.currentState?.validate();
               },
-              child: Text('hasf'),
+              child: const Text('hasf'),
             )
           ],
         ),
