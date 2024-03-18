@@ -44,7 +44,8 @@ class InputFields<T> extends StatefulWidget {
   final Color? errorColor;
   final Color? focusedColor;
   final Color? unFocusedColor;
-  final InputBorderColor? borderColor;
+  // final InputBorderColor? borderColor;
+  final Color? borderColor;
   final T? suffixIcon;
   final double? borderRadius;
   final T? prefixIcon;
@@ -72,6 +73,9 @@ class InputFields<T> extends StatefulWidget {
 
 class _InputFieldsState<T> extends State<InputFields<T>> {
   Color? borderColor;
+  InputBorder? border;
+  InputBorder? focusedBorder;
+  InputBorder? errorBorder;
 
   @override
   void initState() {
@@ -97,35 +101,57 @@ class _InputFieldsState<T> extends State<InputFields<T>> {
     //   }
 
     ///TODO:OPTIMIZE CODE FOR TESTING
-    if (widget.focusNode != null) {
-      if (mounted) {
-        widget.focusNode!.addListener(() {
-          log("focus in listener ${widget.focusNode!.hasFocus}");
-          if (widget.focusNode!.hasFocus == true) {
-            log('Focused Call>>');
-            if (widget.borderColor != null) {
-              borderColor = widget.borderColor!(widget.focusedColor);
-            }
-            // widget.borderColor = ;
-          } else {
-            log('Unfocused Call>>');
-            if (widget.borderColor != null) {
-              borderColor = widget.borderColor!(widget.unFocusedColor);
-            }
-          }
-          setState(() {});
-        });
-      }
-    }
+    // if (widget.focusNode != null) {
+    //   if (mounted) {
+    //     widget.focusNode!.addListener(() {
+    //       log("focus in listener ${widget.focusNode!.hasFocus}");
+    //       if (widget.focusNode!.hasFocus == true) {
+    //         log('Focused Call>>');
+    //         if (widget.borderColor != null) {
+    //           borderColor = widget.borderColor!(widget.focusedColor);
+    //         }
+    //         // widget.borderColor = ;
+    //       } else {
+    //         log('Unfocused Call>>');
+    //         if (widget.borderColor != null) {
+    //           borderColor = widget.borderColor!(widget.unFocusedColor);
+    //         }
+    //       }
+    //       setState(() {});
+    //     });
+    //   }
+    // }
 
-    // TODO: implement initState
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    print("BUILD CALL $borderColor");
     final theme = Theme.of(context);
+    if (widget.border == null) {
+      //Set borders
+      border = theme.inputDecorationTheme.border?.copyWith(
+            borderSide: _borderSide(color: widget.borderColor),
+          ) ??
+          OutlineInputBorder(
+            borderSide: _borderSide(color: widget.borderColor),
+          );
+      focusedBorder = theme.inputDecorationTheme.focusedBorder?.copyWith(
+            borderSide: _borderSide(color: widget.focusedColor),
+          ) ??
+          OutlineInputBorder(
+            borderSide: _borderSide(color: widget.focusedColor),
+          );
+      errorBorder = theme.inputDecorationTheme.errorBorder?.copyWith(
+            borderSide: _borderSide(
+                color: widget.errorColor ??
+                    theme.inputDecorationTheme.errorBorder?.borderSide.color),
+          ) ??
+          OutlineInputBorder(
+            borderSide: _borderSide(color: widget.errorColor),
+          );
+    }
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -154,18 +180,25 @@ class _InputFieldsState<T> extends State<InputFields<T>> {
           onChanged: widget.onChange,
           decoration: widget.inputDecoration?.copyWith(
                 labelText: widget.title,
-                errorBorder: widget.border?.copyWith(
-                  borderSide: _borderSide(
-                      color: widget.errorColor ??
-                          theme.inputDecorationTheme.errorBorder?.borderSide
-                              .color),
-                ),
-                enabledBorder: widget.border?.copyWith(
-                  borderSide: _borderSide(color: borderColor),
-                ),
-                border: OutlineInputBorder(
-                    borderSide: _borderSide(color: borderColor)),
-                focusedBorder: widget.border,
+                errorBorder: errorBorder ??
+                    widget.border?.copyWith(
+                      borderSide: _borderSide(
+                          color: widget.errorColor ??
+                              theme.inputDecorationTheme.errorBorder?.borderSide
+                                  .color),
+                    ),
+                enabledBorder: border ??
+                    widget.border?.copyWith(
+                      borderSide: _borderSide(color: widget.borderColor),
+                    ),
+                border: border ??
+                    widget.border?.copyWith(
+                      borderSide: _borderSide(color: widget.borderColor),
+                    ),
+                focusedBorder: focusedBorder ??
+                    widget.border?.copyWith(
+                      borderSide: _borderSide(color: widget.focusedColor),
+                    ),
                 hintStyle: widget.textStyle,
                 helperStyle: widget.textStyle,
                 contentPadding: widget.contentPadding,
@@ -180,21 +213,25 @@ class _InputFieldsState<T> extends State<InputFields<T>> {
                 labelText: widget.title,
                 prefixIcon: _prefixIcon(context),
                 suffixIcon: _suffixIcon(context),
-                errorBorder: widget.border?.copyWith(
-                  borderSide: _borderSide(
-                      color: widget.errorColor ??
-                          theme.inputDecorationTheme.errorBorder?.borderSide
-                              .color),
-                ),
-                enabledBorder: widget.border?.copyWith(
-                  borderSide: _borderSide(color: borderColor),
-                ),
-                border: widget.border?.copyWith(
-                  borderSide: _borderSide(color: borderColor),
-                ),
-                focusedBorder: widget.border?.copyWith(
-                  borderSide: _borderSide(color: borderColor),
-                ),
+                errorBorder: errorBorder ??
+                    widget.border?.copyWith(
+                      borderSide: _borderSide(
+                          color: widget.errorColor ??
+                              theme.inputDecorationTheme.errorBorder?.borderSide
+                                  .color),
+                    ),
+                enabledBorder: border ??
+                    widget.border?.copyWith(
+                      borderSide: _borderSide(color: widget.borderColor),
+                    ),
+                border: border ??
+                    widget.border?.copyWith(
+                      borderSide: _borderSide(color: widget.borderColor),
+                    ),
+                focusedBorder: focusedBorder ??
+                    widget.border?.copyWith(
+                      borderSide: _borderSide(color: widget.focusedColor),
+                    ),
                 hintText: widget.hintText,
                 fillColor: theme.inputDecorationTheme.fillColor,
                 errorStyle: theme.inputDecorationTheme.errorStyle
@@ -248,7 +285,7 @@ class _InputFieldsState<T> extends State<InputFields<T>> {
   }
 
   BorderSide _borderSide({
-    Color? color = const Color(0x00ffffff),
+    Color? color,
   }) =>
       BorderSide(
           color: color ?? const Color(0xFF000000),

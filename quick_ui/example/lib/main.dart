@@ -17,9 +17,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         cardColor: Colors.deepOrange,
         inputDecorationTheme: InputDecorationTheme(
-            enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-        )),
+          focusedBorder: UnderlineInputBorder(),
+          border: UnderlineInputBorder(),
+          errorBorder: UnderlineInputBorder(),
+        ),
         useMaterial3: true,
       ),
       home: const Example(),
@@ -46,51 +47,31 @@ class _ExampleState extends State<Example> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    print("BUILD CALL     ${theme.inputDecorationTheme}");
     return Scaffold(
       body: Form(
         key: _formKey,
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           children: [
-            const SizedBox(
-              height: 130,
-            ),
-            const InputChip(label: Text("Hello")),
-            Wrap(
-              children: listOfChip.map((e) {
-                return QuickChip(
-                  borderColor: Colors.grey,
-                  backgroundColor: Colors.blue.withOpacity(0.2),
-                  deleteIcon: const Icon(
-                    Icons.ac_unit_sharp,
-                    color: Colors.black,
-                    size: 10,
-                  ),
-                  label: e,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    side: const BorderSide(color: Colors.transparent),
-                  ),
-                );
-              }).toList(),
-            ),
-            const SizedBox(
-              height: 50,
-            ),
+            const SizedBox(height: 50),
             InputFields(
+              // border: OutlineInputBorder(),
               validator: (value) {
                 if (value!.isEmpty) {
                   return 'Required Filed';
                 }
                 return null;
               },
-              unFocusedColor: Colors.grey.withOpacity(0.3),
-              focusedColor: Colors.black87,
-              borderColor: (val) => val!,
+              // unFocusedColor: Colors.grey.withOpacity(0.3),
+              focusedColor: Colors.green,
+              borderColor: Colors.yellow,
+              errorColor: Colors.red,
+
               label: const Text('label'),
-              focusNode: focusNode,
+              // focusNode: focusNode,
               border: OutlineInputBorder(
-                borderSide: const BorderSide(color: Colors.red),
                 borderRadius: BorderRadius.circular(20),
               ),
               hintText: 'Email',
@@ -105,63 +86,14 @@ class _ExampleState extends State<Example> {
                 color: Colors.grey,
               ),
             ),
-            const SizedBox(
-              height: 50,
-            ),
-            ElevatedButton(
-                onPressed: () {
-                  QuickToast.of(context).show(
-                      title: "title 2 wsd",
-                      radius: BorderRadius.circular(
-                          MediaQuery.sizeOf(context).width),
-                      width: MediaQuery.sizeOf(context).width - 10);
-                },
-                child: const Center(child: Text('Tab'))),
-            const SizedBox(
-              height: 50,
-            ),
-            const QuickFloat(
-              initialOffsets: Offset(100, 100),
-              child: Icon(
-                Icons.access_time_filled,
-                size: 50,
-              ),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            const SizedBox(width: 200, child: QuickStopWatch()),
+            MaterialButton(
+              onPressed: () {
+                _formKey.currentState?.validate();
+              },
+              child: Text('hasf'),
+            )
           ],
         ),
-      ),
-      bottomNavigationBar: SimpleBottomBar(
-        items: [
-          BarItem(
-            icon: Icons.crop,
-            activeIcon: Icons.crop,
-            index: 0,
-            selectedIndex: 0,
-            onTap: (int index) {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Cropper()));
-            },
-          ),
-          BarItem(
-            icon: Icons.ac_unit,
-            activeIcon: Icons.access_time_filled,
-            index: 0,
-            selectedIndex: 0,
-            onTap: (int index) {},
-          ),
-          BarItem(
-            icon: Icons.add_chart,
-            activeIcon: Icons.add_chart,
-            index: 0,
-            selectedIndex: 0,
-            onTap: (int index) {},
-          ),
-        ],
-        onChange: (int index) {},
       ),
     );
   }
