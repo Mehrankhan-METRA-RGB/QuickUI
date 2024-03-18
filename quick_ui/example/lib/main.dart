@@ -1,3 +1,4 @@
+import 'package:example/cropper.dart';
 import 'package:flutter/material.dart';
 import 'package:quick_ui/quick_ui.dart';
 
@@ -14,11 +15,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'QUICK UI',
       theme: ThemeData(
-        cardColor: Colors.green,
+        cardColor: Colors.deepOrange,
         inputDecorationTheme: InputDecorationTheme(
-            enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-        )),
+          focusedBorder: UnderlineInputBorder(),
+          border: UnderlineInputBorder(),
+          errorBorder: UnderlineInputBorder(),
+        ),
         useMaterial3: true,
       ),
       home: const Example(),
@@ -53,40 +55,47 @@ class _ExampleState extends State<Example> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    print("BUILD CALL     ${theme.inputDecorationTheme}");
     return Scaffold(
       body: Form(
         key: _formKey,
         child: ListView(
-          padding: EdgeInsets.zero,
-          physics: const BouncingScrollPhysics(),
-          children:  [
-           const SizedBox(height: 202,),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          children: [
+            const SizedBox(height: 50),
+            InputFields(
+              // border: OutlineInputBorder(),
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Required Filed';
+                }
+                return null;
+              },
+              // unFocusedColor: Colors.grey.withOpacity(0.3),
+              focusedColor: Colors.green,
+              borderColor: Colors.yellow,
+              errorColor: Colors.red,
 
-
-
-            /// Example of scrollable tab bar widget
-            ScrollingTabs(
-              physics: const NeverScrollableScrollPhysics(),
-              childGap: 100,
-              color: Colors.red,
-              mainAxis: MainAxisAlignment.spaceBetween,
-              buttons: const [
-                QuickButton(
-                height: 30,
-                width: 80,
-                backgroundColor: Colors.green,
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                child: Center(child: Text('Old'),),
-              ),QuickButton(
-                height: 30,
-                width: 80,
-                backgroundColor: Colors.green,
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                child: Center(child: Text('New'),),
-              )], widgets:[
-              Container(height: 100,width: 500,color: Colors.red,),
-              Container(height: 100,width: 500,color: Colors.green,),
-            ],),
+              label: const Text('label'),
+              // focusNode: focusNode,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              hintText: 'Email',
+              prefixIcon: Icons.person,
+              textStyle: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: Colors.grey,
+              ),
+            ),
+            MaterialButton(
+              onPressed: () {
+                _formKey.currentState?.validate();
+              },
+              child: Text('hasf'),
+            )
           ],
         ),
       ),

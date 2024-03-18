@@ -27,7 +27,7 @@ class QuickFloat extends StatefulWidget {
     required this.child,
     this.copy,
     this.whileDragging,
-    this.initialOffsets = const Offset(100, 100),
+    required this.initialOffsets,
     this.onDragUpdate,
     this.background,
   }) : super(key: key);
@@ -73,15 +73,17 @@ class _QuickFloatState extends State<QuickFloat> {
         feedback: widget.whileDragging ?? widget.child,
         onDragUpdate: (details) {
           setState(() {
-            left += (details.delta.dx);
-            top += (details.delta.dy);
+            left += details.delta.dx;
+            top += details.delta.dy;
+
             widget.onDragUpdate?.call(details);
           });
         },
         onDragEnd: (details) {
           setState(() {
-            left = left.clamp(0.0, MediaQuery.sizeOf(context).width);
-            top = top.clamp(0.0, MediaQuery.sizeOf(context).height);
+            // Clamp the position to ensure it stays within the scene area.
+            left = left.clamp(0.0, MediaQuery.of(context).size.width - 15);
+            top = top.clamp(0.0, MediaQuery.of(context).size.height - 15);
           });
         },
         childWhenDragging: widget.copy ?? const SizedBox(),
