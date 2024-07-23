@@ -92,7 +92,7 @@ class _ExampleState extends State<Example> {
 
               unFocusedColor: Colors.grey.withOpacity(0.3),
               focusedColor: Colors.black87,
-              borderColor: (val) => val!,
+             // borderColor: (val) => val!,
               label: const Text('label'),
             //  focusNode: focusNode,
               border: OutlineInputBorder(
