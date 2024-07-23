@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:quick_ui/quick_ui.dart';
 
 class SimpleBottomBar extends StatefulWidget {
   const SimpleBottomBar({
@@ -43,6 +44,7 @@ class SimpleBottomBarState extends State<SimpleBottomBar> {
     return BottomAppBar(
       height: widget.height,
       padding: const EdgeInsets.all(2),
+
       shadowColor: Theme.of(context).bottomAppBarTheme.shadowColor,
       color:
           widget.backgroundColor ?? Theme.of(context).bottomAppBarTheme.color,
@@ -128,33 +130,11 @@ class BarItem<T> extends StatelessWidget {
                 SizedBox(
                     width: _width,
                     height: _height,
-                    child:
-                        (_icon is String && extension?.toLowerCase() == "svg")
-                            ? SvgPicture.asset(
-                                _icon,
-                                width: _width,
-                                height: _height,
-                                colorFilter: ColorFilter.mode(
-                                    selected
-                                        ? _theme.selectedItemColor!
-                                        : _theme.unselectedItemColor!,
-                                    BlendMode.srcIn),
-                              )
-                            : (_icon is String)
-                                ? Image.asset(_icon,
-                                    width: _width,
-                                    height: _height,
-                                    color: selected
-                                        ? _theme.selectedItemColor
-                                        : _theme.unselectedItemColor)
-                                : Icon(
-                                    _icon,
-                                    size: _height,
-                                    weight: 1,
-                                    color: selected
-                                        ? _theme.selectedItemColor
-                                        : _theme.unselectedItemColor,
-                                  )),
+                    child: QuickImage(
+                            url: _icon,
+                            height: _height,
+                            width: _width,
+                          )),
                 if (text != null)
                   Padding(
                     padding: const EdgeInsets.only(top: 5.0),
