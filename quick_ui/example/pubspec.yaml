@@ -30,6 +30,7 @@ environment:
 dependencies:
   quick_ui:
     path: ../
+
   flutter:
     sdk: flutter
 

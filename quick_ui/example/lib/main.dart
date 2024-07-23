@@ -1,5 +1,7 @@
 import 'package:example/cropper.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:quick_ui/Utils/Extensions/responsive_extention.dart';
 import 'package:quick_ui/quick_ui.dart';
 
 void main() {
@@ -12,6 +14,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    MediaQueryManager().initialize(context,designHeight: 896,designWidth: 386,statusBarHeight: 0);
     return MaterialApp(
       title: 'QUICK UI',
       theme: ThemeData(
@@ -46,14 +49,16 @@ class _ExampleState extends State<Example> {
 
   @override
   Widget build(BuildContext context) {
+
+    print(MediaQueryManager.instance.designHeight);
     return Scaffold(
       body: Form(
         key: _formKey,
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           children: [
-            const SizedBox(
-              height: 130,
+             SizedBox(
+              height: 130.h,
             ),
             const InputChip(label: Text("Hello")),
             Wrap(
@@ -84,11 +89,12 @@ class _ExampleState extends State<Example> {
                 }
                 return null;
               },
+
               unFocusedColor: Colors.grey.withOpacity(0.3),
               focusedColor: Colors.black87,
               borderColor: (val) => val!,
               label: const Text('label'),
-              focusNode: focusNode,
+            //  focusNode: focusNode,
               border: OutlineInputBorder(
                 borderSide: const BorderSide(color: Colors.red),
                 borderRadius: BorderRadius.circular(20),
@@ -98,7 +104,7 @@ class _ExampleState extends State<Example> {
                 Icons.email_outlined,
                 color: Colors.red,
               ),
-              prefixIcon: Icons.security_rounded,
+              prefixIcon: "assets/icon.svg",
               textStyle: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
@@ -108,10 +114,34 @@ class _ExampleState extends State<Example> {
             const SizedBox(
               height: 50,
             ),
+            QuickRichText(
+              textSpans: [
+                TextSpan(
+                  text: 'Hello ',
+                  style: TextStyle(color: Colors.black, fontSize: 18),
+                  recognizer: TapGestureRecognizer()..onTap = () {
+                    print('Hello tapped');
+                  },
+                ),
+                TextSpan(
+                  text: 'World',
+                  style: TextStyle(color: Colors.blue, fontSize: 18, fontWeight: FontWeight.bold),
+                  recognizer: TapGestureRecognizer()..onTap = () {
+                    print('World tapped');
+                  },
+                ),
+              ],
+              textAlign: TextAlign.center,
+              maxLines: 2,
+            ),
+
+            QuickButton(onTap: (){},text: "Quick Button",boxShape: BoxShape.rectangle,),
+
             ElevatedButton(
                 onPressed: () {
                   QuickToast.of(context).show(
                       title: "title 2 wsd",
+                      position: 1.sh-1.stB,
                       radius: BorderRadius.circular(
                           MediaQuery.sizeOf(context).width),
                       width: MediaQuery.sizeOf(context).width - 10);
@@ -121,11 +151,11 @@ class _ExampleState extends State<Example> {
               height: 50,
             ),
             const QuickFloat(
-              initialOffsets: Offset(100, 100),
-              child: Icon(
-                Icons.access_time_filled,
-                size: 50,
-              ),
+              initialOffsets: Offset(0, 1),
+              child:SizedBox(
+                  height: 100,
+                  width: 100,
+                  child: FlutterLogo()),
             ),
             const SizedBox(
               height: 30,

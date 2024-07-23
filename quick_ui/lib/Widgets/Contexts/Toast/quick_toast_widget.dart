@@ -39,7 +39,8 @@ class QuickToastWidget {
   /// - [side]: The border side of the toast.
   ///
   /// - [position]: The vertical position of the toast on the screen from bottom.
-  void show({
+  void show(
+      {
     required String title,
     EdgeInsetsGeometry? padding,
     Color? color,
@@ -102,10 +103,11 @@ class QuickToastWidget {
 
     // Create the overlay entry with the provided parameters.
     overlayEntry = OverlayEntry(
-      builder: (context) => Positioned(
-        bottom: 100,
+      builder: (context) => AnimatedPositioned(
+        bottom: position,
         left: width == null ? horizontalPadding : (mediaWidth - width) / 2,
         right: width == null ? horizontalPadding : (mediaWidth - width) / 2,
+        duration: const Duration(milliseconds: 100),
         child: Material(
           elevation: elevation,
           color: color ?? const Color(0xf2242424),
