@@ -73,10 +73,7 @@ class QuickImage<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    // print(url is IconData);
-    // print(url);
-    //
-    // print(color);
+
 
     return ClipRRect(
       borderRadius: radius ?? BorderRadius.zero,

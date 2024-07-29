@@ -1,4 +1,5 @@
 import 'package:example/cropper.dart';
+import 'package:example/overlayportalexample.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:quick_ui/Utils/Extensions/responsive_extention.dart';
@@ -39,14 +40,22 @@ class Example extends StatefulWidget {
 
 class _ExampleState extends State<Example> {
   FocusNode focusNode = FocusNode();
-
+int currentTabIndex=0;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
+  List<String> fruits = [
+  "Apple", "Apricot", "Avocado", "Banana", "Blackberry", "Blueberry", "Boysenberry", "Cantaloupe", "Cherry", "Clementine",
+  "Coconut", "Cranberry", "Cucumber", "Currant", "Date", "Dragonfruit", "Durian", "Elderberry", "Feijoa", "Fig",
+  "Gooseberry", "Grape", "Grapefruit", "Guava", "Honeydew", "Huckleberry", "Jackfruit", "Jambul", "Jujube", "Kiwi",
+  "Kumquat", "Lemon", "Lime", "Lychee", "Mango", "Mangosteen", "Mulberry", "Nectarine", "Orange", "Papaya",
+  "Passionfruit", "Peach", "Pear", "Persimmon", "Pineapple", "Plum", "Pomegranate", "Pomelo", "Quince", "Raspberry",
+  "Redcurrant", "Salak", "Satsuma", "Starfruit", "Strawberry", "Tamarillo", "Tamarind", "Tangerine", "Tomato", "Ugli fruit",
+  "Watermelon", "Yuzu", "Acerola", "Ackee", "African cucumber", "American persimmon", "Atemoya", "Babaco", "Bael", "Barbadine",
+  "Barberry", "Bilberry", "Biriba", "Black sapote", "Blood orange", "Breadfruit", "Buddha's hand", "Cactus pear", "Calamansi",];
   List<String> listOfChip = ['String ', 'int', 'bool', 'dynamic', 'function'];
 
   int activeIndex = 0;
   Offset offset = const Offset(50, 100);
-
+  OverlayPortalController controller = OverlayPortalController();
   @override
   Widget build(BuildContext context) {
 
@@ -81,6 +90,18 @@ class _ExampleState extends State<Example> {
             ),
             const SizedBox(
               height: 50,
+            ),
+
+            ///quick portal example
+            ///quick portal example
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+               // QuickPortal(child: child, overlayChild: overlayChild, controller: controller)
+
+
+                QuickPortalExample()
+              ],
             ),
             InputFields(
               validator: (value) {
@@ -118,14 +139,14 @@ class _ExampleState extends State<Example> {
               textSpans: [
                 TextSpan(
                   text: 'Hello ',
-                  style: TextStyle(color: Colors.black, fontSize: 18),
+                  style: const TextStyle(color: Colors.black, fontSize: 18),
                   recognizer: TapGestureRecognizer()..onTap = () {
                     print('Hello tapped');
                   },
                 ),
                 TextSpan(
                   text: 'World',
-                  style: TextStyle(color: Colors.blue, fontSize: 18, fontWeight: FontWeight.bold),
+                  style: const TextStyle(color: Colors.blue, fontSize: 18, fontWeight: FontWeight.bold),
                   recognizer: TapGestureRecognizer()..onTap = () {
                     print('World tapped');
                   },
@@ -134,6 +155,37 @@ class _ExampleState extends State<Example> {
               textAlign: TextAlign.center,
               maxLines: 2,
             ),
+            const QuickText("Scrollable Tabs"),
+            QuickScrollingTabs(
+              currentTabIndex:currentTabIndex ,
+                childGap: 10,
+                buttons: const [
+              QuickButton(
+            text: "1",
+            ),QuickButton(
+
+                text: "2",
+              ),QuickButton(
+              text: "3",
+              )
+
+                ], widgets: [
+                Container(
+
+              color: Colors.red,
+              height: 200,
+
+            ),Container(
+              color: Colors.blue,
+              height: 200,
+
+            )
+                  ,Container(
+              color: Colors.black,
+              height: 200,
+            )
+
+            ]),
 
             QuickButton(onTap: (){},text: "Quick Button",boxShape: BoxShape.rectangle,),
 
@@ -173,7 +225,7 @@ class _ExampleState extends State<Example> {
             selectedIndex: 0,
             onTap: (int index) {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Cropper()));
+                  context, MaterialPageRoute(builder: (context) => const Cropper()));
             },
           ),
           BarItem(

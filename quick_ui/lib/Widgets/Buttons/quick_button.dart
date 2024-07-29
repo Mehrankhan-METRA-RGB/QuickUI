@@ -5,7 +5,7 @@ import 'package:quick_ui/Widgets/Components/app_icon_handler.dart';
 class QuickButton extends StatelessWidget {
   const QuickButton({
     super.key,
-    required this.onTap,
+    this.onTap,
     this.text = '',
     this.backgroundColor,
     this.textColor,
@@ -41,7 +41,7 @@ class QuickButton extends StatelessWidget {
     this.centerSvg,
   });
 
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final String text;
   final Color? backgroundColor;
   final Color? textColor;

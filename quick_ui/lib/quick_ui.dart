@@ -19,4 +19,4 @@ export 'Widgets/Text/quick_rich_text.dart';
 export 'Widgets/Text/quick_text.dart';
 export 'Utils/Extensions/extensions.dart';
 export 'Utils/Extensions/responsive_extention.dart';
-export 'Widgets/Buttons/quick_button.dart';
+export 'Widgets/Portal/quick_portal.dart';

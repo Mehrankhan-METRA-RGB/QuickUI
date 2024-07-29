@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:quick_ui/quick_ui.dart';
 
 class QuickDropDown extends StatelessWidget {
   final Widget? prefixIcon;
@@ -91,10 +92,7 @@ class QuickDropDown extends StatelessWidget {
                 right: prefixIcon != null ? 10 : 12,
               ),
 
-          // EdgeInsets.symmetric(
-          //   vertical: 13,
-          //   horizontal: prefixIcon != null ? 10 : 6,
-          // ).r,
+
           hintStyle: hintStyle,
           errorBorder: isBorderRequired ? inputBorder?.copyWith(
             borderSide: const BorderSide(color: Colors.red),
@@ -106,7 +104,7 @@ class QuickDropDown extends StatelessWidget {
                 borderSide: const BorderSide(color: Colors.red),
               ) : outlineInputBorder(),
         ),
-        hint: Text(
+        hint: QuickText(
           hintText,
           style: hintStyle,
         ),

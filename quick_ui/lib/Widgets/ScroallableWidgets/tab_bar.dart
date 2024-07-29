@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:quick_ui/Widgets/Chips/quick_chip.dart';
 
 /// Define a StatefulWidget for ScrollingTabs
-class ScrollingTabs extends StatefulWidget {
+class QuickScrollingTabs extends StatefulWidget {
   /// Constructor for ScrollingTabs widget
-  const ScrollingTabs({super.key, ///Key for widget identification
+  const QuickScrollingTabs({super.key, ///Key for widget identification
     required this.buttons, /// List of tab buttons
     required this.widgets, /// List of corresponding tab views
     this.containerWidth, /// Width of the container
@@ -41,11 +41,11 @@ class ScrollingTabs extends StatefulWidget {
   final double? childGap; /// Gap between tab buttons
 
   @override
-  State<ScrollingTabs> createState() => _ScrollingTabsState(); // Create state for ScrollingTabs
+  State<QuickScrollingTabs> createState() => _QuickScrollingTabsState(); // Create state for ScrollingTabs
 }
 
 // Define the state for ScrollingTabs
-class _ScrollingTabsState extends State<ScrollingTabs> {
+class _QuickScrollingTabsState extends State<QuickScrollingTabs> {
   int? currentTab; // Current selected tab index
 
   @override
@@ -56,6 +56,7 @@ class _ScrollingTabsState extends State<ScrollingTabs> {
 
   @override
   Widget build(BuildContext context) {
+    print(currentTab);
     return Column(
       children: [
         Container(
@@ -76,21 +77,26 @@ class _ScrollingTabsState extends State<ScrollingTabs> {
             child: SizedBox(
               width: widget.buttonWidth ?? MediaQuery.of(context).size.width, // Set width of each tab button
               child: Row(
-                children: [
-                  for (int i = 0; i < widget.buttons.length; i++)
-                    Row(
+                children:
+                  widget.buttons.map((element){
+
+                    int i = widget.buttons.indexOf(element);
+                    return Row(
                       children: [
                         GestureDetector(
                           onTap: () {
-                            currentTab = i; // Set currentTab to the tapped tab index
+                            currentTab = i;
+                            print(currentTab);// Set currentTab to the tapped tab index
                             setState(() {});
                           },
                           child: widget.buttons[i], // Show tab button
                         ),
                         SizedBox(width: widget.childGap ?? 40), // Add SizedBox between tab buttons
                       ],
-                    ),
-                ],
+                    );
+                  }).toList()
+
+
               ),
             ),
           ),
