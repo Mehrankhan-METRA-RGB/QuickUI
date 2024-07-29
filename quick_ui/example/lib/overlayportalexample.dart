@@ -56,7 +56,7 @@ class _QuickPortalExampleState extends State<QuickPortalExample> {
       child: ElevatedButton(
         onPressed: () {
 
-          controller.toggle();
+        //  controller.toggle();
           //controller.show();
         },
         child: const Text('Show Overlay'),

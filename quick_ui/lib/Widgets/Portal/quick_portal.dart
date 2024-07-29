@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 /// QuickPortal is a widget that creates a portal to display an overlay on top of another widget.
 /// The overlay can be customized with various properties such as [overlayChild], [offset],
-/// [alignment], [overlaySize], [childDecoration], [childAnimationDuration], and [animationType].
+/// [alignment], [overlayWidth ],[overlayHeight], [childDecoration], [childAnimationDuration], and [animationType].
 /// The overlay can be displayed using an [OverlayPortalController] to control its visibility.
 /// The main content of the portal is displayed as a child widget, while the overlay content is
 /// displayed as an overlay child widget.
@@ -42,21 +42,41 @@ class QuickPortal extends StatefulWidget {
 
 class _QuickPortalState extends State<QuickPortal> {
   final LayerLink link = LayerLink();
-
+  bool parentInside = false;
   @override
   Widget build(BuildContext context) {
     return OverlayPortal(
       controller: widget.controller,
-      child: CompositedTransformTarget(
-        link: link,
-        child: widget.child,
+      child: TapRegion(
+        onTapOutside: (ss) {
+          setState(() {
+            parentInside = !parentInside;
+          });
+        },
+        onTapInside: (c) {
+          //print("parent inside");
+          parentInside = !parentInside;
+          setState(() {});
+          widget.controller.toggle();
+        },
+        child: CompositedTransformTarget(
+          link: link,
+          child: widget.child,
+        ),
       ),
       overlayChildBuilder: (context) {
         return TapRegion(
           onTapOutside: (ss) {
-            widget.controller.isShowing ? widget.controller.hide() : null;
+            // print("child outside");
+            widget.controller.isShowing && parentInside == true
+                ? widget.controller.hide()
+                : null;
           },
-          onTapInside: (c) {},
+          onTapInside: (c) {
+            setState(() {
+              parentInside = !parentInside;
+            });
+          },
           child: CompositedTransformFollower(
             offset: widget.offset,
             link: link,
@@ -66,7 +86,6 @@ class _QuickPortalState extends State<QuickPortal> {
               child: AnimatedOverlayChild(
                 duration: widget.childAnimationDuration,
                 decoration: widget.childDecoration,
-                // size: overlaySize,
                 childHeight: widget.overlayHeight,
                 childWidth: widget.overlayWidth,
                 animationType: widget.animationType,
