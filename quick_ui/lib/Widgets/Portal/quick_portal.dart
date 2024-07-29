@@ -22,7 +22,7 @@ class QuickPortal extends StatefulWidget {
   final Duration childAnimationDuration;
   final AnimationType animationType;
 
-  QuickPortal({
+  const QuickPortal({
     super.key,
     this.overlayWidth,
     this.overlayHeight,
@@ -120,10 +120,10 @@ class AnimatedOverlayChild extends StatefulWidget {
   });
 
   @override
-  _AnimatedOverlayChildState createState() => _AnimatedOverlayChildState();
+  AnimatedOverlayChildState createState() => AnimatedOverlayChildState();
 }
 
-class _AnimatedOverlayChildState extends State<AnimatedOverlayChild>
+class AnimatedOverlayChildState extends State<AnimatedOverlayChild>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
