@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 /// will be Used instead of DropDowns, Popups, etc.
 /// [Alignment] is used to position the overlay child relative to the main child.Keep in mind it is inverse
 
-class QuickPortal extends StatelessWidget {
+class QuickPortal extends StatefulWidget {
   final Widget child;
   final Widget overlayChild;
   final OverlayPortalController controller;
@@ -36,32 +36,42 @@ class QuickPortal extends StatelessWidget {
     this.animationType = AnimationType.scale,
   });
 
+  @override
+  State<QuickPortal> createState() => _QuickPortalState();
+}
+
+class _QuickPortalState extends State<QuickPortal> {
   final LayerLink link = LayerLink();
 
   @override
   Widget build(BuildContext context) {
-
     return OverlayPortal(
-      controller: controller,
+      controller: widget.controller,
       child: CompositedTransformTarget(
         link: link,
-        child: child,
+        child: widget.child,
       ),
       overlayChildBuilder: (context) {
-        return CompositedTransformFollower(
-          offset: offset,
-          link: link,
-          followerAnchor: alignment,
-          child: Align(
-            alignment: alignment,
-            child: AnimatedOverlayChild(
-              duration: childAnimationDuration,
-              decoration: childDecoration,
-             // size: overlaySize,
-              childHeight: overlayHeight ,
-              childWidth: overlayWidth,
-              animationType: animationType,
-              child: overlayChild,
+        return TapRegion(
+          onTapOutside: (ss) {
+            widget.controller.isShowing ? widget.controller.hide() : null;
+          },
+          onTapInside: (c) {},
+          child: CompositedTransformFollower(
+            offset: widget.offset,
+            link: link,
+            followerAnchor: widget.alignment,
+            child: Align(
+              alignment: widget.alignment,
+              child: AnimatedOverlayChild(
+                duration: widget.childAnimationDuration,
+                decoration: widget.childDecoration,
+                // size: overlaySize,
+                childHeight: widget.overlayHeight,
+                childWidth: widget.overlayWidth,
+                animationType: widget.animationType,
+                child: widget.overlayChild,
+              ),
             ),
           ),
         );
@@ -70,14 +80,12 @@ class QuickPortal extends StatelessWidget {
   }
 }
 
-
-enum AnimationType { scale, fade, rotate ,none}
+enum AnimationType { scale, fade, rotate, none }
 
 class AnimatedOverlayChild extends StatefulWidget {
   final Widget child;
   final Duration duration;
   final BoxDecoration? decoration;
-  //final Size? size;
   final double? childWidth;
   final double? childHeight;
   final AnimationType animationType;
@@ -111,7 +119,8 @@ class _AnimatedOverlayChildState extends State<AnimatedOverlayChild>
 
     switch (widget.animationType) {
       case AnimationType.scale:
-        _animation = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
+        _animation =
+            CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
         break;
       case AnimationType.fade:
         _animation = Tween<double>(begin: 0, end: 1).animate(_controller);
@@ -121,7 +130,7 @@ class _AnimatedOverlayChildState extends State<AnimatedOverlayChild>
         break;
       case AnimationType.none:
         break;
-        // TODO: Handle this case.
+      // TODO: Handle this case.
     }
 
     _controller.forward();
@@ -142,14 +151,16 @@ class _AnimatedOverlayChildState extends State<AnimatedOverlayChild>
         animatedChild = ScaleTransition(scale: _animation, child: widget.child);
         break;
       case AnimationType.fade:
-        animatedChild = FadeTransition(opacity: _animation, child: widget.child);
+        animatedChild =
+            FadeTransition(opacity: _animation, child: widget.child);
         break;
       case AnimationType.rotate:
-        animatedChild = RotationTransition(turns: _animation, child: widget.child);
+        animatedChild =
+            RotationTransition(turns: _animation, child: widget.child);
         break;
       case AnimationType.none:
         animatedChild = widget.child;
-        // TODO: Handle this case.
+      // TODO: Handle this case.
     }
 
     return Container(

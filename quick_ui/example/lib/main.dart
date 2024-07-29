@@ -55,7 +55,6 @@ int currentTabIndex=0;
 
   int activeIndex = 0;
   Offset offset = const Offset(50, 100);
-  OverlayPortalController controller = OverlayPortalController();
   @override
   Widget build(BuildContext context) {
 
@@ -94,7 +93,7 @@ int currentTabIndex=0;
 
             ///quick portal example
             ///quick portal example
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                // QuickPortal(child: child, overlayChild: overlayChild, controller: controller)

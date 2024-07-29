@@ -176,6 +176,7 @@ class _InputFieldsState<T> extends State<InputFields<T>> {
           onEditingComplete: widget.onEditingComplete,
           onFieldSubmitted: widget.onFieldSubmit,
           onTap: widget.onTap,
+          onTapOutside: (v){},
           focusNode: widget.focusNode,
           controller: widget.controller,
           onChanged: widget.onChange,

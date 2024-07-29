@@ -28,12 +28,12 @@ class _QuickPortalExampleState extends State<QuickPortalExample> {
         padding: const EdgeInsets.all(0),
         color: Colors.black,
         child:ListView.separated(itemBuilder: (context,index){
-
+    
           return  QuickRichText( textSpans: [
-
+    
             const TextSpan(
                 text: 'Fruits >'
-
+    
             ),
             TextSpan(
               text: fruits[index],
@@ -41,16 +41,16 @@ class _QuickPortalExampleState extends State<QuickPortalExample> {
           ],);
         },
           separatorBuilder: (context,index){
-
+    
             return const Divider(color: Colors.blue,);
-
+    
           },
           itemCount: fruits.length,),
       ),
       controller: controller,
       offset: const Offset(0, 50),
       alignment: Alignment.topLeft,
-
+    
       overlayHeight: 500,
       overlayWidth: 120,
       child: ElevatedButton(
