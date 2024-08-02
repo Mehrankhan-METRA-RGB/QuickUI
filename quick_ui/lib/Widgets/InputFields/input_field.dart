@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:quick_ui/quick_ui.dart';
 
 typedef VoidInputChange = void Function(String value);
+typedef VoidTapOutside = void Function(PointerDownEvent value);
 typedef InputBorderColor = Color Function(Color? value);
 
 class InputFields<T> extends StatefulWidget {
@@ -12,6 +13,7 @@ class InputFields<T> extends StatefulWidget {
       this.title,
       this.controller,
       this.validator,
+        this.onTapOutside,
       this.label,
       this.hintText,
       this.fillColor,
@@ -58,6 +60,7 @@ class InputFields<T> extends StatefulWidget {
   final BorderStyle borderStyle;
   final double borderStrokeAlign;
   final VoidInputChange? onChange;
+  final VoidTapOutside? onTapOutside;
   final String? Function(String? value)? validator;
   final InputBorder? border;
   final EdgeInsets? contentPadding;
@@ -176,7 +179,7 @@ class _InputFieldsState<T> extends State<InputFields<T>> {
           onEditingComplete: widget.onEditingComplete,
           onFieldSubmitted: widget.onFieldSubmit,
           onTap: widget.onTap,
-          onTapOutside: (v){},
+          onTapOutside: widget.onTapOutside,
           focusNode: widget.focusNode,
           controller: widget.controller,
           onChanged: widget.onChange,

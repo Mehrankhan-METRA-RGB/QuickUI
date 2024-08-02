@@ -110,6 +110,7 @@ int currentTabIndex=0;
                 return null;
               },
 
+
               unFocusedColor: Colors.grey.withOpacity(0.3),
               focusedColor: Colors.black87,
              // borderColor: (val) => val!,

@@ -27,7 +27,10 @@ class _QuickPortalExampleState extends State<QuickPortalExample> {
       overlayChild: Container(
         padding: const EdgeInsets.all(0),
         color: Colors.black,
-        child:ListView.separated(itemBuilder: (context,index){
+        child:ListView.separated(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          shrinkWrap: true,
+          itemBuilder: (context,index){
     
           return  QuickRichText( textSpans: [
     
@@ -45,13 +48,13 @@ class _QuickPortalExampleState extends State<QuickPortalExample> {
             return const Divider(color: Colors.blue,);
     
           },
-          itemCount: fruits.length,),
+          itemCount: 5,),
       ),
       controller: controller,
-      offset: const Offset(0, 50),
-      alignment: Alignment.topLeft,
+      offset: const Offset(0, 0),
+      alignment: Alignment.bottomLeft,
     
-      overlayHeight: 500,
+      overlayHeight: 200,
       overlayWidth: 120,
       child: ElevatedButton(
         onPressed: () {
