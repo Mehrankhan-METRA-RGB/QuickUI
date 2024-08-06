@@ -20,3 +20,7 @@ export 'Widgets/Text/quick_text.dart';
 export 'Utils/Extensions/extensions.dart';
 export 'Utils/Extensions/responsive_extention.dart';
 export 'Widgets/Portal/quick_portal.dart';
+export 'Widgets/QuickFrame/quick_frame.dart';
+export 'Widgets/QuickFrame/bottom_model.dart';
+
+export 'Widgets/QuickFrame/Controller/btController.dart';

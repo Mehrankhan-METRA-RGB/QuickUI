@@ -1,5 +1,6 @@
 import 'package:example/cropper.dart';
 import 'package:example/overlayportalexample.dart';
+import 'package:example/quickframe.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:quick_ui/Utils/Extensions/responsive_extention.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
         )),
         useMaterial3: true,
       ),
-      home: const Example(),
+      home: QuickFramExample()
     );
   }
 }
